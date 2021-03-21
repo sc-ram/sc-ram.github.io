@@ -17,7 +17,7 @@ jobs:
               <title>Hello Pages/title>
             </head>
             <body>
-              <p>Hello World </p>
+              <b>Hello World </b>
             </body>
           </html>
           EOL
