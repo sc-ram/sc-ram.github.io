@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Welcome to sc-ram</title><link>https://sc-ram.github.io/posts/</link><description>Recent content in Posts on Welcome to sc-ram</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 21 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://sc-ram.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>GitHub Actions FTW</title><link>https://sc-ram.github.io/posts/20210321_gh_actions/</link><pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate><guid>https://sc-ram.github.io/posts/20210321_gh_actions/</guid><description>Using GitHub Actions with Hugo to build this site
-Making use of GitHub actions in combination with Hugo is a nice and easy way to build static web pages. The following resources helped in making this really easy:
+Making use of GitHub actions in combination with Hugo is a nice and easy way to build static web pages. The following resources helped to make this really easy:
 GH actions by peaceiris Hermit Template Nice blog as baseline</description><content type="html"><![CDATA[<p>Using GitHub Actions with Hugo to build this site</p>
 <p>Making use of GitHub actions in combination with Hugo is a nice and easy way to build static web pages.
-The following resources helped in making this really easy:</p>
+The following resources helped to make this really easy:</p>
 <ul>
 <li><a href="https://github.com/peaceiris/actions-gh-pages">GH actions by peaceiris</a></li>
 <li><a href="https://github.com/Track3/hermit">Hermit Template</a></li>
