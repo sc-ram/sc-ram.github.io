@@ -17,13 +17,11 @@ jobs:
           git submodule sync && git submodule update --init
       - name: Build
         run: make docs
-      - name: add nojekyll
-        run: touch ./docs/public/.nojekyll
       - name: Deploy to GH Pages Repository
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
-          build_dir: pages
+          build_dir: ./docs/public
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
