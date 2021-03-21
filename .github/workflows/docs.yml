@@ -16,7 +16,9 @@ jobs:
         run: |
           git submodule sync && git submodule update --init
       - name: Build
-        run: hugo --minify
+        run: make docs
+      - name: add nojekyll
+        run: touch ./docs/public/.nojekyll
       - name: Deploy to GH Pages Repository
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
