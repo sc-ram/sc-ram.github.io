@@ -21,11 +21,11 @@ jobs:
             </body>
           </html>
           EOL
-      - name: Deploy to GH Pages Repository
-        if: success()
-        uses: crazy-max/ghaction-github-pages@v2
-        with:
-          target_branch: gh-pages
-          build_dir: pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Deploy to GH Pages Repository
+#        if: success()
+#        uses: crazy-max/ghaction-github-pages@v2
+#        with:
+#          target_branch: gh-pages
+#          build_dir: pages
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
