@@ -1,17 +1,14 @@
 name: Publish Docs
-
-on:
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
       - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
@@ -19,18 +16,18 @@ jobs:
         uses: peaceiris/actions-hugo@v2.2.1
         with:
           hugo-version: '0.58.3'
-      - name: Prepare Hugo
+      - name: Prepare Hugo Theme
         run: |
           git submodule sync && git submodule update --init
       - name: Build
         run: make docs
       - name: add nojekyll
         run: touch ./docs/public/.nojekyll
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v2.4.0
+      - name: Deploy to GH Pages Repository
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          emptyCommits: false
+          target_branch: gh-pages
+          build_dir: pages
         env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./docs/public
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
