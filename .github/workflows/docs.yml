@@ -16,7 +16,7 @@ jobs:
         run: |
           git submodule sync && git submodule update --init
       - name: Build
-        run: make docs
+        run: cd docs && hugo --minify
       - name: Deploy to GH Pages Repository
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
