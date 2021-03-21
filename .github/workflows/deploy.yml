@@ -1,0 +1,31 @@
+name: pages
+on: push
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Generate simple HTML file
+        run: |
+          mkdir pages
+          cat > pages/index.html <<EOL
+          <!doctype html>
+          <html>
+            <head>
+              <title>Hello Pages/title>
+            </head>
+            <body>
+              <p>Hello World </p>
+            </body>
+          </html>
+          EOL
+      - name: Deploy to GH Pages Repository
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
