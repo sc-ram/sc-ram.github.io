@@ -1,4 +1,4 @@
-name: Publish Docs
+name: Publish Pages
 on: push
 
 jobs:
@@ -16,12 +16,11 @@ jobs:
         run: |
           git submodule sync && git submodule update --init
       - name: Build
-        run: cd docs && hugo --minify
-      - name: Deploy to GH Pages Repository
+        run: |
+          cd docs && hugo --minify
+      - name: Deploy
         if: success()
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          target_branch: gh-pages
-          build_dir: ./docs/public
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/public
