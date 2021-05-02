@@ -1,0 +1,86 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=theme-color content="#494f5c"><meta name=msapplication-TileColor content="#494f5c"><meta itemprop=name content="Backup data from single Synology NAS drive"><meta itemprop=description content="What happens if your Synology is gone but the drive is still there?
+I recently upgraded my 2-bay Synology NAS with bigger drives by replacing one drive after the other with a bigger one and running a repair step afterwards. That worked perfectly fine and did not take too long. However, afterwards I wanted too see if I could retrieve data from the drives even though they had been setup using SHR (Synology Hybrid Raid)."><meta itemprop=datePublished content="2021-05-02T00:00:00+00:00"><meta itemprop=dateModified content="2021-05-02T00:00:00+00:00"><meta itemprop=wordCount content="800"><meta itemprop=keywords content><meta property="og:title" content="Backup data from single Synology NAS drive"><meta property="og:description" content="What happens if your Synology is gone but the drive is still there?
+I recently upgraded my 2-bay Synology NAS with bigger drives by replacing one drive after the other with a bigger one and running a repair step afterwards. That worked perfectly fine and did not take too long. However, afterwards I wanted too see if I could retrieve data from the drives even though they had been setup using SHR (Synology Hybrid Raid)."><meta property="og:type" content="article"><meta property="og:url" content="https://sc-ram.github.io/posts/20210502_synology_nas_drive_backup/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-05-02T00:00:00+00:00"><meta property="article:modified_time" content="2021-05-02T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Backup data from single Synology NAS drive"><meta name=twitter:description content="What happens if your Synology is gone but the drive is still there?
+I recently upgraded my 2-bay Synology NAS with bigger drives by replacing one drive after the other with a bigger one and running a repair step afterwards. That worked perfectly fine and did not take too long. However, afterwards I wanted too see if I could retrieve data from the drives even though they had been setup using SHR (Synology Hybrid Raid)."><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color><link rel="shortcut icon" href=/favicon.ico><title>Backup data from single Synology NAS drive</title><link rel=stylesheet href=https://sc-ram.github.io/css/style.min.eac77496566fd7d5768fd650ddb0b2b181ca6a2d7c5fdd6fe6b8ba4bf47e566f.css integrity="sha256-6sd0llZv19V2j9ZQ3bCysYHKai18X91v5ri6S/R+Vm8=" crossorigin=anonymous></head><body id=page><header id=site-header class="animated slideInUp"><div class="hdr-wrapper section-inner"><div class=hdr-left><div class=site-branding><a href=https://sc-ram.github.io/>Welcome to sc-ram</a></div><nav class="site-nav hide-in-mobile"><a href=https://sc-ram.github.io/posts/>Posts</a>
+<a href=https://sc-ram.github.io/about/>About</a></nav></div><div class="hdr-right hdr-icons"><span class="hdr-social hide-in-mobile"><a href=https://github.com/sc-ram target=_blank rel="noopener me" title=Github><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></span><button id=menu-btn class=hdr-btn title=Menu><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></div></header><div id=mobile-menu class="animated fast"><ul><li><a href=https://sc-ram.github.io/posts/>Posts</a></li><li><a href=https://sc-ram.github.io/about/>About</a></li></ul></div><main class="site-main section-inner animated fadeIn faster"><article class=thin><header class=post-header><div class=post-meta><span>May 2, 2021</span></div><h1>Backup data from single Synology NAS drive</h1></header><div class=content><p>What happens if your Synology is gone but the drive is still there?</p><p>I recently upgraded my 2-bay Synology NAS with bigger drives by replacing one drive after the other with a bigger one
+and running a repair step afterwards. That worked perfectly fine and did not take too long. However, afterwards I wanted
+too see if I could retrieve data from the drives even though they had been setup using SHR (Synology Hybrid Raid).
+This could come handy if the NAS dies but the drives are still intact. As I am working on my old drives there is no risk
+of losing data. But playing with the raid configuration can of course lead to invalid raid configurations and data loss.</p><p>So let&rsquo;s see how far we can get&mldr;</p><h2 id=connect-drive-usb-or-sata-and-check-device-name>Connect drive (USB or SATA) and check device name<a href=#connect-drive-usb-or-sata-and-check-device-name class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><pre><code>$ lsblk
+...
+
+sdc               8:32   0   1.8T  0 disk 
+├─sdc1            8:33   0   2.4G  0 part 
+├─sdc2            8:34   0     2G  0 part 
+├─sdc3            8:35   0     1K  0 part 
+└─sdc5            8:37   0   1.8T  0 part
+</code></pre><p>I don&rsquo;t have too many drives attached to my machine so finding the correct block device is easy. In my case it is sdc.
+Apparently it contains 4 partitions. Let&rsquo;s see what kind of raid SHR really is.</p><h2 id=check-raid-configuration>Check Raid configuration<a href=#check-raid-configuration class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><pre><code>$ sudo mdadm --examine /dev/sdc5
+/dev/sdc5:
+          Magic : a92b4efc
+        Version : 1.2
+    Feature Map : 0x0
+     Array UUID : b424cd2c:14d42b7d:b24e6e57:48e95d1b
+           Name : DiskStation:2
+  Creation Time : Fri Feb  3 10:09:23 2017
+     Raid Level : raid1
+   Raid Devices : 2
+
+ Avail Dev Size : 3897366912 (1858.41 GiB 1995.45 GB)
+     Array Size : 1948683456 (1858.41 GiB 1995.45 GB)
+    Data Offset : 2048 sectors
+   Super Offset : 8 sectors
+   Unused Space : before=1968 sectors, after=0 sectors
+          State : clean
+    Device UUID : 3a6825ba:a1548281:c02a8604:47837a28
+
+    Update Time : Wed Apr 21 19:54:13 2021
+       Checksum : d1cd24ec - correct
+         Events : 446
+
+
+   Device Role : Active device 1
+   Array State : AA ('A' == active, '.' == missing, 'R' == replacing)
+</code></pre><p>Apparently we can work with raid 1 after all. Let&rsquo;s see if we can create a running raid configuration and mount it.</p><h2 id=assemble-raid-from-single-disk>Assemble raid from single disk<a href=#assemble-raid-from-single-disk class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><pre><code>$ sudo mdadm -A -R /dev/md3 /dev/sdc5
+mdadm: Merging with already-assembled /dev/md/DiskStation:2
+mdadm: failed to add /dev/sdc5 to /dev/md/DiskStation:2: Device or resource busy
+mdadm: /dev/md/DiskStation:2 has been started with 0 drives (out of 2).
+</code></pre><p>Apparently mdadm already created a raid. As I want to set it up manually I will stop this raid for now.
+Especially as it will not work with 0 drives.</p><pre><code>$ sudo mdadm --stop /dev/md/DiskStation\:2 
+mdadm: stopped /dev/md/DiskStation:2
+</code></pre><p>Let&rsquo;s try the assemble step once again</p><pre><code>$ sudo mdadm -A -R /dev/md3 /dev/sdc5
+mdadm: /dev/md3 has been started with 1 drive (out of 2).
+</code></pre><p>That looks much better. This time one drive has been started which is enough for raid 1. Let&rsquo;s try to mount it.</p><h2 id=lets-try-to-mount-it---part1>Let&rsquo;s try to mount it - part1<a href=#lets-try-to-mount-it---part1 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><pre><code>$ sudo mkdir /mnt/syno
+</code></pre><p>First create a directory to mount the device.</p><pre><code>$ sudo mount /dev/md3 /mnt/syno/
+mount: /mnt/syno: unknown filesystem type 'LVM2_member'.
+</code></pre><p>Not so fast! Synology seems to use LVM on top of the raid to slice the volumes. So more work is required.</p><h2 id=lvm-setup-required>LVM setup required<a href=#lvm-setup-required class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><pre><code>$ sudo vgscan
+WARNING: PV /dev/md3 in VG vg1000 is using an old PV header, modify the VG to update.
+Found volume group &quot;vg1000&quot; using metadata type lvm2
+</code></pre><p>OK so there is a volume group <code>vg1000</code> on the device we just set up using mdadm.
+Let&rsquo;s see what LVM can tell us about the volume.</p><pre><code>$ sudo lvdisplay
+  WARNING: PV /dev/md3 in VG vg1000 is using an old PV header, modify the VG to update.
+  --- Logical volume ---
+  LV Path                /dev/vg1000/lv
+  LV Name                lv
+  VG Name                vg1000
+  LV UUID                2gf4Pt-Zn61-CMXW-fBBu-ybWH-gbCi-pqe3q3
+  LV Write Access        read/write
+  LV Creation host, time , 
+  LV Status              available
+  # open                 0
+  LV Size                1.81 TiB
+  Current LE             475752
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     131064
+  Block device           253:3
+</code></pre><p>This is interesting as it already tells us the LV Path as <code>/dev/vg1000/lv</code>.
+So let&rsquo;s try to mount it once again.</p><h2 id=lets-try-to-mount-it---part2>Let&rsquo;s try to mount it - part2<a href=#lets-try-to-mount-it---part2 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><pre><code>$ sudo mount /dev/vg1000/lv /mnt/syno/
+</code></pre><p>There is no error. Does that mean we managed to mount it finally?</p><pre><code>$ cd /mnt/syno
+</code></pre><pre><code>$ ls
+Backup   Data   Music
+</code></pre><p>Well, I guess we managed to get to the data.
+The drive is mounted correctly and we can access the data on the drive.
+It contains just the same data like Volume1 on the Synology UI.
+After all it is just a LVM volume.</p><h2 id=learnings>Learnings<a href=#learnings class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><ul><li>Synology uses software raid based on mdadm for raid setup</li><li>Volumes are sliced using LVM on top of the raid devices</li><li>Now I really want to do that with a 4-bay NAS to see if there are any differences. Unfortunately I don&rsquo;t have one.</li></ul></div><hr class=post-end><footer class=post-info><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-feather"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>sc-ram</p><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>800 Words</p><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2021-05-02 00:00 +0000</p></footer></article><div class="post-nav thin"><a class=prev-post href=https://sc-ram.github.io/posts/20210321_gh_actions/><span class=post-nav-label>Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><br><span>GitHub Actions FTW</span></a></div><div id=comments class=thin></div></main><footer id=site-footer class="section-inner thin animated fadeIn faster"><p>&copy; 2021 <a href=https://sc-ram.github.io/>sc-ram</a> &#183; <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel=noopener>CC BY-NC 4.0</a></p><p>Made with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> &#183; Theme <a href=https://github.com/Track3/hermit target=_blank rel=noopener>Hermit</a> &#183; <a href=https://sc-ram.github.io/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a></p></footer><script src=https://sc-ram.github.io/js/bundle.min.7d8545daa55d62427355498dd8da13f98ff79a7938ce7d2a5e2ae1ec0de3beb8.js integrity="sha256-fYVF2qVdYkJzVUmN2NoT+Y/3mnk4zn0qXirh7A3jvrg=" crossorigin=anonymous></script></body></html>
